@@ -13,14 +13,14 @@
         <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: #f5f6fa;
+                background: linear-gradient(135deg, #0d6efd, #d9534f); /* Azul a rojo */
                 margin: 0;
                 padding: 0;
             }
 
             h2 {
                 text-align: center;
-                color: #2f3640;
+                color: white;
             }
 
             form {
@@ -37,7 +37,7 @@
                 display: block;
                 margin-bottom: 8px;
                 font-weight: bold;
-                color: #353b48;
+                color: red;
             }
 
             input[type="text"] {

@@ -94,6 +94,21 @@
                     flex-direction: column;
                 }
             }
+            /* Estilos para el pie de página */
+            footer {                 
+                font-size: 80%;
+                color: red;
+                bottom: 10px; /* Ajuste de posición */
+                left: 10px; /* Ajuste de posición */
+                text-align: left; /* Alineación a la izquierda */
+                text-shadow:
+                    1px  1px 0 black;  /* Sombra abajo a la derecha */
+            }
+            /* Tamaño y alineación del logotipo de derechos de autor en el pie de página */
+            .copyright-logo {
+                width: 20px; /* Ajuste de tamaño */
+                vertical-align: middle; /* Alineación vertical con el texto */
+            }
         </style>
     </head>
     <body>
@@ -187,8 +202,15 @@
                 <div class="form-group" style="flex: none; width: 30%;">
                     <button type="submit" class="btn-registrar">Cargar Excel</button>
                 </div>
+
             </div>
         </form>
+
+        <!-- Pie de página con derechos de autor -->
+        <footer>
+            <img src="img/pngegg.png" alt="Copyright" class="copyright-logo">
+            <b>2024. Todos los derechos reservados. BDsedo V1.0.0</b>
+        </footer> 
 
     </body>
 </html>
