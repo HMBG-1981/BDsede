@@ -1,4 +1,5 @@
-servlet\BuscarLiderServlet.class
+servlet\ExportarExcelServlet.class
+servlet\BuscarVotanteServlet.class
 servlet\CargarExcelServlet.class
 conection\conexionbd.class
 com\mycompany\newproyect\JakartaRestConfiguration.class

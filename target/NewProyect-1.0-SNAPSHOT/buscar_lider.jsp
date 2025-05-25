@@ -20,7 +20,12 @@
 
             h2 {
                 text-align: center;
-                color: white;
+                color: red;
+                text-shadow:
+                    -1px -1px 0 black,
+                    1px -1px 0 black,
+                    -1px 1px 0 black,
+                    1px 1px 0 black;    /* crea el efecto de delineado */
             }
 
             form {
@@ -41,11 +46,16 @@
             }
 
             input[type="text"] {
-                width: 100%;
+                width: 95%;
                 padding: 10px;
                 border: 1px solid #dcdde1;
                 border-radius: 8px;
                 margin-bottom: 15px;
+            }
+
+            .btn-container {
+                display: flex;
+                justify-content: space-between;
             }
 
             button {
@@ -61,17 +71,36 @@
             button:hover {
                 background-color: #0097e6;
             }
+
+            .exportar-btn {
+                background-color: #28a745;
+            }
+
+            .exportar-btn:hover {
+                background-color: #218838;
+            }
         </style>
     </head>
     <body>
-        <h2>Buscar Información del Líder</h2>
+        <h2>FILTRO GENERAL DE INFORMACION 2025</h2>
 
-        <form method="POST" action="buscarLider">
-            <label for="lider">Nombre del líder:</label>
-            <input type="text" id="lider" name="lider" required>
-            <button type="submit">Buscar</button>
+        <!-- Formulario para búsqueda -->
+        <form action="buscarVotante" method="post">
+            <label>Líder:</label>
+            <input type="text" name="lider" placeholder="Nombre del líder">
+
+            <label>Puesto:</label>
+            <input type="text" name="puesto" placeholder="Nombre del puesto">
+
+            <label>Mesa:</label>
+            <input type="text" name="mesa" placeholder="Número de mesa">
+
+            <div class="btn-container">
+                <button type="submit">Buscar</button>
+                <!-- Botón para exportar -->
+                <button type="submit" formaction="exportarExcel" formmethod="get" class="exportar-btn">Exportar Excel</button>
+            </div>
         </form>
-
-
     </body>
 </html>
+

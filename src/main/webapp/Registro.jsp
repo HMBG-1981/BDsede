@@ -4,45 +4,53 @@
     Author     : Administrador
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%> <!-- Define el tipo de contenido como HTML y la codificación como UTF-8 -->
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"> <!-- Indica que el idioma principal de la página es español -->
     <head>
-        <meta charset="UTF-8">
-        <title>Formulario de Registro</title>
+        <meta charset="UTF-8"> <!-- Codificación de caracteres -->
+        <title>Formulario de Registro</title> <!-- Título que aparece en la pestaña del navegador -->
+
+        <!-- Estilos CSS para el diseño visual -->
         <style>
             body {
-                font-family: 'Segoe UI', sans-serif;
-                background: linear-gradient(135deg, #0d6efd, #d9534f); /* Azul a rojo */
+                font-family: 'Segoe UI', sans-serif; /* Fuente principal */
+                background: linear-gradient(135deg, #0d6efd, #d9534f); /* Fondo degradado azul a rojo */
                 margin: 0;
                 padding: 30px;
             }
 
             form {
-                background: #ffffff;
-                max-width: 800px;
-                margin: auto;
+                background: #ffffff; /* Fondo blanco del formulario */
+                max-width: 800px; /* Ancho máximo */
+                margin: auto; /* Centrado horizontal */
                 padding: 30px;
-                border-radius: 15px;
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-                border-top: 6px solid #0d6efd;
+                border-radius: 15px; /* Bordes redondeados */
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+                border-top: 6px solid #0d6efd; /* Borde superior azul */
             }
 
             h2 {
                 text-align: center;
-                color: #ff0800;
+                color: red; /* Rojo */
                 margin-bottom: 30px;
+                font-size: 40px;
+                text-shadow:
+                    -1px -1px 0 black,
+                    1px -1px 0 black,
+                    -1px 1px 0 black,
+                    1px 1px 0 black;    /* crea el efecto de delineado */
             }
 
             .form-row {
                 display: flex;
                 gap: 30px;
                 margin-bottom: 9px;
-                flex-wrap: wrap;
+                flex-wrap: wrap; /* Permite que se adapten en pantallas pequeñas */
             }
 
             .form-group {
-                flex: 1;
+                flex: 1; /* Cada grupo ocupa el mismo espacio */
             }
 
             label {
@@ -91,32 +99,33 @@
 
             @media (max-width: 700px) {
                 .form-row {
-                    flex-direction: column;
+                    flex-direction: column; /* Cambia el diseño a columna en pantallas pequeñas */
                 }
             }
-            /* Estilos para el pie de página */
-            footer {                 
+
+            footer {
                 font-size: 80%;
                 color: red;
-                bottom: 10px; /* Ajuste de posición */
-                left: 10px; /* Ajuste de posición */
-                text-align: left; /* Alineación a la izquierda */
-                text-shadow:
-                    1px  1px 0 black;  /* Sombra abajo a la derecha */
+                bottom: 10px;
+                left: 10px;
+                text-align: left;
+                text-shadow: 1px 1px 0 black; /* Sombra para mejor visibilidad */
             }
-            /* Tamaño y alineación del logotipo de derechos de autor en el pie de página */
+
             .copyright-logo {
-                width: 20px; /* Ajuste de tamaño */
-                vertical-align: middle; /* Alineación vertical con el texto */
+                width: 20px;
+                vertical-align: middle;
             }
         </style>
     </head>
     <body>
 
-        <form action="RegistroServlet" method="post">
+        <!-- Formulario principal de registro -->
+        <form action="RegistroServlet" method="post"> <!-- Envia datos al servlet "RegistroServlet" usando POST -->
 
             <h2>Formulario de Registro</h2>
 
+            <!-- Fila con campos de nombre y cédula -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -124,13 +133,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="cedula">Cedula</label>
+                    <label for="cedula">Cédula</label>
                     <input type="text" id="cedula" name="cedula" required>
                 </div>
             </div>
 
+            <!-- Fila con dirección y teléfono -->
             <div class="form-row">
-
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
                     <input type="text" id="direccion" name="direccion" required>
@@ -142,43 +151,46 @@
                 </div>
             </div>
 
+            <!-- Fila con puesto y mesa (opciones generadas dinámicamente con JSP) -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="puesto">Puesto</label>
                     <input type="text" id="puesto" name="puesto" required>
                 </div>
+
                 <div class="form-group">
                     <label for="mesa">Mesa:</label>
                     <select id="mesa" name="mesa" required>
                         <option value="">Seleccione una mesa</option>
                         <% for (int i = 1; i <= 50; i++) { %>
-                        <option value="<%=i%>"><%=i%></option>
+                        <option value="<%=i%>"><%=i%></option> <!-- Opciones de 1 a 50 -->
                         <% } %>
                     </select>
                 </div>
             </div>
 
+            <!-- Fila con ciudad y líder -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="ciudad">Ciudad</label>
                     <input type="text" id="ciudad" name="ciudad" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="lider">Lider</label>
+                    <label for="lider">Líder</label>
                     <input type="text" id="lider" name="lider" required>
                 </div>
-
             </div>
 
+            <!-- Campo de observaciones -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="observacion">Observacion</label>
+                    <label for="observacion">Observación</label>
                     <input type="text" id="observacion" name="observacion" required>
                 </div>
-
             </div>
 
-            <!-- Botones en la misma fila -->
+            <!-- Botones de registrar y buscar -->
             <div class="form-row" style="justify-content: flex-start; margin-top: 20px;">
                 <div class="form-group" style="flex: none; width: 30%;">
                     <button type="submit" class="btn-registrar">Registrarse</button>
@@ -190,23 +202,28 @@
                 </div>
             </div>
         </form>
+
+        <!-- Segundo formulario para cargar archivo Excel -->
         <form action="CargarExcelServlet" method="post" enctype="multipart/form-data">
             <h2>Cargar Datos desde Excel</h2>
+
+            <!-- Campo para seleccionar el archivo -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="archivoExcel">Selecciona archivo Excel (.xlsx):</label>
                     <input type="file" id="archivoExcel" name="archivoExcel" accept=".xlsx" required>
                 </div>
             </div>
+
+            <!-- Botón para cargar el archivo -->
             <div class="form-row">
                 <div class="form-group" style="flex: none; width: 30%;">
                     <button type="submit" class="btn-registrar">Cargar Excel</button>
                 </div>
-
             </div>
         </form>
 
-        <!-- Pie de página con derechos de autor -->
+        <!-- Pie de página con logotipo y derechos -->
         <footer>
             <img src="img/pngegg.png" alt="Copyright" class="copyright-logo">
             <b>2024. Todos los derechos reservados. BDsedo V1.0.0</b>
