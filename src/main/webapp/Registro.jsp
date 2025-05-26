@@ -34,7 +34,7 @@
                 text-align: center;
                 color: red; /* Rojo */
                 margin-bottom: 30px;
-                font-size: 40px;
+                font-size: 35px;
                 text-shadow:
                     -1px -1px 0 black,
                     1px -1px 0 black,
@@ -193,7 +193,7 @@
             <!-- Botones de registrar y buscar -->
             <div class="form-row" style="justify-content: flex-start; margin-top: 20px;">
                 <div class="form-group" style="flex: none; width: 30%;">
-                    <button type="submit" class="btn-registrar">Registrarse</button>
+                    <button type="submit" class="btn-registrar">Registrar</button>
                 </div>
                 <div class="form-group" style="flex: none; width: 30%; margin-left: 20px;">
                     <button type="button" class="btn-buscar" onclick="window.location.href = 'buscar_lider.jsp'">

@@ -84,12 +84,16 @@ public class BuscarVotanteServlet extends HttpServlet {
                     out.println("body { background: linear-gradient(to bottom right, red, blue); color: white; font-family: Arial; }");
                     out.println("table { background-color: rgba(255, 255, 255, 0.9); color: black; border-collapse: collapse; width: 100%; }");
                     out.println("th, td { border: 1px solid black; padding: 8px; }");
+                    out.println("ul { list-style-type: square; }");
                     out.println("</style></head><body>");
 
                     out.println("<h2>Resultados de búsqueda</h2>");
-                    out.println("<p><strong>Criterios:</strong> ");
-                    criterios.forEach((k, v) -> out.print(k + " = " + v + "; "));
-                    out.println("</p>");
+                    out.println("<p><strong>Criterios de búsqueda:</strong></p>");
+                    out.println("<ul>");
+                    criterios.forEach((k, v) -> {
+                        out.println("<li><strong>" + k + ":</strong> " + v + "</li>");
+                    });
+                    out.println("</ul>");
 
                     if (!rs.isBeforeFirst()) {
                         out.println("<p>No se encontraron registros para los criterios especificados.</p>");
