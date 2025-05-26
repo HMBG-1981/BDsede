@@ -14,7 +14,7 @@
     <style> <%-- Inicio del bloque de estilos CSS --%>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0d6efd, #d9534f);
+            background: url(img/bandera.jpg);
             margin: 0;
             padding: 0;
         }
@@ -35,7 +35,7 @@
             max-width: 500px;
             margin: 30px auto;
             padding: 20px;
-            background-color: #ffffff;
+            background: linear-gradient(135deg, #0d6efd, #d9534f);
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
@@ -45,6 +45,11 @@
             margin-bottom: 8px;
             font-weight: bold;
             color: red;
+            text-shadow:
+                -1px -1px 0 black,
+                1px -1px 0 black,
+                -1px 1px 0 black,
+                1px 1px 0 black;
         }
 
         select {

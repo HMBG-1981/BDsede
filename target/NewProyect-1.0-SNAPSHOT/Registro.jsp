@@ -15,13 +15,13 @@
         <style>
             body {
                 font-family: 'Segoe UI', sans-serif; /* Fuente principal */
-                background: linear-gradient(135deg, #0d6efd, #d9534f); /* Fondo degradado azul a rojo */
+                background: url(img/bandera.jpg);
                 margin: 0;
-                padding: 30px;
+                padding: 10px;
             }
 
             form {
-                background: #ffffff; /* Fondo blanco del formulario */
+                background: linear-gradient(135deg, #0d6efd, #d9534f);
                 max-width: 800px; /* Ancho máximo */
                 margin: auto; /* Centrado horizontal */
                 padding: 30px;
@@ -56,7 +56,7 @@
             label {
                 display: block;
                 font-weight: bold;
-                color: #0d6efd;
+                color: #ffffff;
                 margin-bottom: 5px;
             }
 
