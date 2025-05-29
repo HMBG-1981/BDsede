@@ -4,17 +4,15 @@
     Author     : Administrador
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%> <!-- Define el tipo de contenido como HTML y la codificación como UTF-8 -->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es"> <!-- Indica que el idioma principal de la página es español -->
+<html lang="es">
     <head>
-        <meta charset="UTF-8"> <!-- Codificación de caracteres -->
-        <title>Formulario de Registro</title> <!-- Título que aparece en la pestaña del navegador -->
-
-        <!-- Estilos CSS para el diseño visual -->
+        <meta charset="UTF-8">
+        <title>Formulario de Registro</title>
         <style>
             body {
-                font-family: 'Segoe UI', sans-serif; /* Fuente principal */
+                font-family: 'Segoe UI', sans-serif;
                 background: url(img/bandera.jpg);
                 margin: 0;
                 padding: 10px;
@@ -22,35 +20,35 @@
 
             form {
                 background: linear-gradient(135deg, #0d6efd, #d9534f);
-                max-width: 800px; /* Ancho máximo */
-                margin: auto; /* Centrado horizontal */
+                max-width: 800px;
+                margin: auto;
                 padding: 30px;
-                border-radius: 15px; /* Bordes redondeados */
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
-                border-top: 6px solid #0d6efd; /* Borde superior azul */
+                border-radius: 15px;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                border-top: 6px solid #0d6efd;
             }
 
             h2 {
                 text-align: center;
-                color: red; /* Rojo */
+                color: red;
                 margin-bottom: 30px;
                 font-size: 35px;
                 text-shadow:
                     -1px -1px 0 black,
                     1px -1px 0 black,
                     -1px 1px 0 black,
-                    1px 1px 0 black;    /* crea el efecto de delineado */
+                    1px 1px 0 black;
             }
 
             .form-row {
                 display: flex;
                 gap: 30px;
                 margin-bottom: 9px;
-                flex-wrap: wrap; /* Permite que se adapten en pantallas pequeñas */
+                flex-wrap: wrap;
             }
 
             .form-group {
-                flex: 1; /* Cada grupo ocupa el mismo espacio */
+                flex: 1;
             }
 
             label {
@@ -69,18 +67,17 @@
             }
 
             button {
-                margin-left: 130px;
-                width: 100%;
                 padding: 12px;
                 font-size: 16px;
                 border: none;
                 border-radius: 8px;
                 cursor: pointer;
                 transition: background 0.3s;
+                width: 100%;
             }
 
             .btn-registrar {
-                background-color: #ff0800;
+                background-color: blue;
                 color: white;
             }
 
@@ -89,7 +86,7 @@
             }
 
             .btn-buscar {
-                background-color: #0d6efd;
+                background-color: red;
                 color: white;
             }
 
@@ -97,9 +94,24 @@
                 background-color: #0056d2;
             }
 
+            .botonera {
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                margin-top: 20px;
+            }
+
+            .botonera .form-group {
+                flex: 1;
+            }
+
             @media (max-width: 700px) {
                 .form-row {
-                    flex-direction: column; /* Cambia el diseño a columna en pantallas pequeñas */
+                    flex-direction: column;
+                }
+
+                .botonera {
+                    flex-direction: column;
                 }
             }
 
@@ -109,7 +121,7 @@
                 bottom: 10px;
                 left: 10px;
                 text-align: left;
-                text-shadow: 1px 1px 0 black; /* Sombra para mejor visibilidad */
+                text-shadow: 1px 1px 0 black;
             }
 
             .copyright-logo {
@@ -120,12 +132,9 @@
     </head>
     <body>
 
-        <!-- Formulario principal de registro -->
-        <form action="RegistroServlet" method="post"> <!-- Envia datos al servlet "RegistroServlet" usando POST -->
+        <form action="RegistroServlet" method="post">
+            <h2>Base de Datos 2025</h2>
 
-            <h2>Formulario de Registro</h2>
-
-            <!-- Fila con campos de nombre y cédula -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -138,7 +147,6 @@
                 </div>
             </div>
 
-            <!-- Fila con dirección y teléfono -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
@@ -151,7 +159,6 @@
                 </div>
             </div>
 
-            <!-- Fila con puesto y mesa (opciones generadas dinámicamente con JSP) -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="puesto">Puesto</label>
@@ -163,13 +170,12 @@
                     <select id="mesa" name="mesa" required>
                         <option value="">Seleccione una mesa</option>
                         <% for (int i = 1; i <= 50; i++) { %>
-                        <option value="<%=i%>"><%=i%></option> <!-- Opciones de 1 a 50 -->
+                        <option value="<%=i%>"><%=i%></option>
                         <% } %>
                     </select>
                 </div>
             </div>
 
-            <!-- Fila con ciudad y líder -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="ciudad">Ciudad</label>
@@ -182,7 +188,6 @@
                 </div>
             </div>
 
-            <!-- Campo de observaciones -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="observacion">Observación</label>
@@ -190,24 +195,24 @@
                 </div>
             </div>
 
-            <!-- Botones de registrar y buscar -->
-            <div class="form-row" style="justify-content: flex-start; margin-top: 20px;">
-                <div class="form-group" style="flex: none; width: 30%;">
-                    <button type="submit" class="btn-registrar">Registrar</button>
+            <!-- Botones alineados en una línea -->
+            <div class="botonera">
+                <div class="form-group">
+                    <button type="submit" class="btn-registrar">Enviar</button>
                 </div>
-                <div class="form-group" style="flex: none; width: 30%; margin-left: 20px;">
-                    <button type="button" class="btn-buscar" onclick="window.location.href = 'buscar_lider.jsp'">
-                        Buscar
-                    </button>
+                <div class="form-group">
+                    <button type="button" class="btn-buscar" onclick="window.location.href = 'buscar_lider.jsp'">Buscar</button>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn-buscar" onclick="window.location.href = 'editar_votante.jsp'">Editar</button>
                 </div>
             </div>
+
         </form>
 
-        <!-- Segundo formulario para cargar archivo Excel -->
         <form action="CargarExcelServlet" method="post" enctype="multipart/form-data">
             <h2>Cargar Datos desde Excel</h2>
 
-            <!-- Campo para seleccionar el archivo -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="archivoExcel">Selecciona archivo Excel (.xlsx):</label>
@@ -215,7 +220,6 @@
                 </div>
             </div>
 
-            <!-- Botón para cargar el archivo -->
             <div class="form-row">
                 <div class="form-group" style="flex: none; width: 30%;">
                     <button type="submit" class="btn-registrar">Cargar Excel</button>
@@ -223,11 +227,10 @@
             </div>
         </form>
 
-        <!-- Pie de página con logotipo y derechos -->
         <footer>
             <img src="img/pngegg.png" alt="Copyright" class="copyright-logo">
             <b>2024. Todos los derechos reservados. BDsedo V1.0.0</b>
-        </footer> 
+        </footer>
 
     </body>
 </html>
