@@ -1,11 +1,12 @@
-servlet\ExportarExcelServlet.class
 servlet\EditarRegistroServlet.class
 servlet\UsuariosServlet.class
 servlet\BuscarVotanteServlet.class
+servlet\CargarExcelServlet$1.class
+servlet\LoginServlet.class
+servlet\ExportarExcelServlet.class
 servlet\CargarExcelServlet.class
 conection\conexionbd.class
 com\mycompany\newproyect\JakartaRestConfiguration.class
-servlet\CargarExcelServlet$1.class
 com\mycompany\newproyect\resources\JakartaEE10Resource.class
-servlet\LoginServlet.class
+servlet\EliminarRegistroServlet.class
 servlet\RegistroServlet.class

@@ -66,7 +66,7 @@
             button {
                 width: 40%;
                 margin-top: 3%;
-                margin-left: 25%;
+                margin-left: 5%;
                 padding: 12px;
                 font-size: 16px;
                 border: none;
@@ -92,11 +92,12 @@
             .btn-buscar:hover {
                 background-color: #0056d2;
             }
-            
+
             .botonera {
+                margin-left: 20%;
                 display: flex;
                 justify-content: space-between;
-                gap: 10px;
+                gap: 1px;
                 margin-top: 20px;
             }
 
@@ -124,11 +125,14 @@
             }
 
             .mensaje.error {
-                background-color: #dc3545; /* rojo error */
                 padding: 10px;
                 border-radius: 8px;
             }
 
+            .mensaje.exito {
+                padding: 10px;
+                border-radius: 8px;
+            }
         </style>
     </head>
     <body>
@@ -156,6 +160,10 @@
             } else if ("error".equals(mensaje)) {
         %>
         <p class="mensaje error">❌ No se pudo actualizar el registro.</p>
+        <%
+            } else if ("eliminado".equals(mensaje)) {
+        %>
+        <p class="mensaje exito">🗑️ Registro eliminado correctamente.</p>
         <%
             }
 
@@ -242,13 +250,16 @@
                 </div>
                 <div class="form-group">
                     <label>Observación:</label>
-                    <input type="text" name="observacion" value="<%= observacion %>" required>
+                    <input type="text" name="observacion" value="<%= observacion %>">
                 </div>
             </div>
 
             <br>
             <button type="submit" class="btn-registrar">Guardar Cambios</button>
+            <button type="submit" formaction="EliminarRegistroServlet" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');" class="btn-registrar" style="background-color: red;">Eliminar</button>
         </form>
+
+
         <%
             } else if (cedula != null && !encontrado) {
         %>
@@ -258,4 +269,3 @@
         %>
     </body>
 </html>
-

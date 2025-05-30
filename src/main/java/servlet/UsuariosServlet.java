@@ -43,7 +43,7 @@ public class UsuariosServlet extends HttpServlet {
             int result = ps.executeUpdate();
 
             if (result > 0) {
-                response.sendRedirect("Login.jsp?mensaje=Registro exitoso");
+                response.sendRedirect("bienvenida.jsp?mensaje=Registro exitoso");
             } else {
                 response.sendRedirect("registro_usuarios.jsp?mensaje=Error al registrar");
             }

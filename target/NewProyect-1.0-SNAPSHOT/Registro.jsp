@@ -99,6 +99,7 @@
                 justify-content: space-between;
                 gap: 20px;
                 margin-top: 20px;
+                flex-wrap: wrap;
             }
 
             .botonera .form-group {
@@ -133,7 +134,7 @@
     <body>
 
         <form action="RegistroServlet" method="post">
-            <h2>Base de Datos 2025</h2>
+            <h2>BD CONGRESO 2026</h2>
 
             <div class="form-row">
                 <div class="form-group">
@@ -205,6 +206,9 @@
                 </div>
                 <div class="form-group">
                     <button type="button" class="btn-buscar" onclick="window.location.href = 'editar_votante.jsp'">Editar</button>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn-buscar" onclick="window.location.href = 'cerrar_sesion.jsp'">Cerrar Sesión</button>
                 </div>
             </div>
 
