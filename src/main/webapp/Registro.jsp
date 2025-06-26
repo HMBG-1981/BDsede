@@ -82,7 +82,7 @@
             }
 
             .btn-registrar:hover {
-                background-color: #e00700;
+                background-color: green;
             }
 
             .btn-buscar {
@@ -91,7 +91,7 @@
             }
 
             .btn-buscar:hover {
-                background-color: #0056d2;
+                background-color: green;
             }
 
             .botonera {

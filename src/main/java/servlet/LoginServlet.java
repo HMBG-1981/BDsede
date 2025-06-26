@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -51,7 +52,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("bienvenida.jsp");
             } else {
                 // Usuario no encontrado
-                response.sendRedirect("Login.jsp?mensaje=Usuario o contraseña incorrectos.");
+                response.sendRedirect("Login.jsp?mensaje=Usuario o clave incorrectos.");
             }
 
             rs.close();

@@ -72,7 +72,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #a93030;
+            background-color: green;
         }
 
         p.mensaje {

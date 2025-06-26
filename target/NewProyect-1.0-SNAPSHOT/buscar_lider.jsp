@@ -76,7 +76,7 @@
             }
 
             button:hover {
-                background-color: #0097e6;
+                background-color: green;
             }
 
             .exportar-btn {
@@ -84,7 +84,7 @@
             }
 
             .exportar-btn:hover {
-                background-color: #218838;
+                background-color: green;
             }
         </style> <%-- Fin del bloque de estilos --%>
     </head>
@@ -124,7 +124,7 @@
                         stmt.close();
                         con.close();
                     } catch (Exception e) {
-                        out.println("<option>Error al cargar líderes</option>"); // Mostrar error si ocurre una excepción
+                        out.println("<option>Vacio...</option>"); // Mostrar error si ocurre una excepción
                     }
                 %>
             </select>
@@ -149,7 +149,7 @@
                         stmt.close();
                         con.close();
                     } catch (Exception e) {
-                        out.println("<option>Error al cargar puestos</option>");
+                        out.println("<option>Vacio...</option>");
                     }
                 %>
             </select>
@@ -172,8 +172,10 @@
             <div class="btn-container"> <%-- Contenedor para los botones con diseño flexible --%>
                 <button type="submit">Buscar</button> <%-- Botón para enviar el formulario --%>
                 <button type="submit" formaction="exportarExcel" formmethod="get" class="exportar-btn">Exportar Excel</button> <%-- Botón para exportar resultados --%>
+                <button type="button" onclick="window.location.href = 'modulo_puestos.jsp'">Otras Consultas</button> <%-- Nuevo botón --%>
                 <button type="button" class="btn-buscar" onclick="window.location.href = 'Registro.jsp'">Regresar</button>
             </div>
+
         </form>
     </body>
 </html>

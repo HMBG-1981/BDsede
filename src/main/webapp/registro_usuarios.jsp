@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : registro_usuarios
     Created on : 29/05/2025, 12:21:04 p. m.
     Author     : Administrador
@@ -94,7 +94,7 @@
 
             input[type="submit"]:hover,
             .btn-buscar:hover {
-                background-color: #a93030;
+                background-color: green;
             }
 
             @media (max-width: 700px) {
@@ -124,7 +124,7 @@
     </head>
     <body>
         <h2>Formulario de Registro</h2>
-        <form action="UsuariosServlet" method="post">
+        <form action="UsuariosServlet" method="post" onsubmit="return validarContrasena();">
             <div class="form-row">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
@@ -156,11 +156,10 @@
 
             <div class="botonera">
                 <div class="form-group">
-                    <!-- Cambiado a type="submit" para enviar el formulario -->
                     <button type="submit" class="btn-buscar">Registrar</button>
                 </div>
                 <div class="form-group"> 
-                    <button type="button" class="btn-buscar" onclick="window.location.href = 'Registro.jsp'">Regresar</button>
+                    <button type="button" class="btn-buscar" onclick="window.location.href = 'bienvenida.jsp'">Regresar</button>
                 </div>
             </div>
         </form>
@@ -171,6 +170,28 @@
         %>
         <p class="mensaje"><%= mensaje %></p>
         <% } %>
+
+        <script>
+            function validarContrasena() {
+                const contrasena = document.getElementById("contrasena").value;
+                const mensaje = "La contraseña debe tener al menos:\n\n" +
+                        "- 8 caracteres\n" +
+                        "- Una letra mayúscula\n" +
+                        "- Un número\n" +
+                        "- Un carácter especial (!@#$%^&* etc.)";
+
+                const tieneLongitud = contrasena.length >= 8;
+                const tieneMayuscula = /[A-Z]/.test(contrasena);
+                const tieneNumero = /\d/.test(contrasena);
+                const tieneEspecial = /[!@#$%^&*(),.?\":{}|<>]/.test(contrasena);
+
+                if (!(tieneLongitud && tieneMayuscula && tieneNumero && tieneEspecial)) {
+                    alert(mensaje);
+                    return false;
+                }
+
+                return true;
+            }
+        </script>
     </body>
 </html>
-
