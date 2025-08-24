@@ -31,7 +31,7 @@
 
             form {
                 width: 90%;
-                max-width: 500px;
+                max-width: 600px;
                 margin: 30px auto;
                 padding: 20px;
                 background: linear-gradient(135deg, #0d6efd, #d9534f);
@@ -86,16 +86,15 @@
 
             .btn-container {
                 display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
+                flex-wrap: nowrap;
+                justify-content: space-between;
                 gap: 10px;
                 margin-top: 15px;
             }
 
             .btn-container button {
-                flex: 1 1 45%;
-                min-width: 45%;
-                max-width: 45%;
+                flex: 1 1 auto;
+                width: 24%;
                 background-color: red;
                 color: white;
                 padding: 12px 0;
@@ -103,7 +102,7 @@
                 border-radius: 8px;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
-                font-size: 16px;
+                font-size: 15px;
                 text-align: center;
             }
 
@@ -113,7 +112,7 @@
 
             .resultado {
                 width: 90%;
-                max-width: 500px;
+                max-width: 600px;
                 margin: 20px auto;
                 background: #fff;
                 padding: 15px;
@@ -158,10 +157,10 @@
             </div>
 
             <div class="btn-container">
-                <button type="submit" name="accion" value="consultarSeleccion">Consultar seleccionados</button>
-                <button type="submit" name="accion" value="mayorCantidad">Mayor cantidad</button>
-                <button type="submit" name="accion" value="menorCantidad">Menor cantidad</button>
-                <button type="button" onclick="window.location.href = 'Registro.jsp'">Regresar</button>
+                <button type="submit" name="accion" value="consultarSeleccion">Consultar</button>
+                <button type="submit" name="accion" value="mayorCantidad">Mayor</button>
+                <button type="submit" name="accion" value="menorCantidad">Menor</button>
+                <button type="button" onclick="window.location.href = 'buscar_lider.jsp'">Regresar</button>
             </div>
         </form>
 
@@ -205,5 +204,6 @@
         </script>
     </body>
 </html>
+
 
 

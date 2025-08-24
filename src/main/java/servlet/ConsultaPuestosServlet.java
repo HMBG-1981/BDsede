@@ -15,7 +15,7 @@ import java.util.*;
 public class ConsultaPuestosServlet extends HttpServlet {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/BDsede";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "1981bcG@";
+    private static final String DB_PASS = "1981bcG";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

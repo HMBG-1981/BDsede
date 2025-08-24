@@ -103,7 +103,7 @@
                         Class.forName("com.mysql.cj.jdbc.Driver");
 
                         // Establecer conexión con la base de datos
-                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsede", "root", "1981bcG@");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsede", "root", "1981bcG");
 
                         // Crear objeto Statement para ejecutar consultas
                         Statement stmt = con.createStatement();
@@ -136,7 +136,7 @@
                 <%
                     try {
                         Class.forName("com.mysql.cj.jdbc.Driver");
-                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsede", "root", "1981bcG@");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsede", "root", "1981bcG");
                         Statement stmt = con.createStatement();
                         ResultSet rs = stmt.executeQuery("SELECT DISTINCT puesto FROM registro_votantes ORDER BY puesto");
                         while (rs.next()) {

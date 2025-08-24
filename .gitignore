@@ -1,1 +1,20 @@
-/nbproject/
+/SEDO/nbproject/private/
+/NewProyect/nbproject/private/
+
+# Ignorar directorios de compilación
+target/
+
+# Ignorar clases compiladas
+*.class
+
+# Ignorar carpeta de NetBeans
+nbproject/
+
+# Ignorar carpeta de compilación
+target/
+
+# Ignorar clases compiladas
+*.class
+
+# Ignorar logs
+*.log

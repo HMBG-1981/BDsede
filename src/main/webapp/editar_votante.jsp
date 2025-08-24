@@ -217,25 +217,25 @@
                 </div>
                 <div class="form-group">
                     <label>Dirección:</label>
-                    <input type="text" name="direccion" value="<%= direccion %>" required>
+                    <input type="text" name="direccion" value="<%= direccion %>" >
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label>Teléfono:</label>
-                    <input type="text" name="telefono" value="<%= telefono %>" required>
+                    <input type="text" name="telefono" value="<%= telefono %>" >
                 </div>
                 <div class="form-group">
                     <label>Puesto:</label>
-                    <input type="text" name="puesto" value="<%= puesto %>" required>
+                    <input type="text" name="puesto" value="<%= puesto %>" >
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label>Mesa:</label>
-                    <input type="text" name="mesa" value="<%= mesa %>" required>
+                    <input type="text" name="mesa" value="<%= mesa %>" >
                 </div>
                 <div class="form-group">
                     <label>Ciudad:</label>

@@ -21,7 +21,7 @@ public class BuscarVotanteServlet extends HttpServlet {
 
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/bdsede";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASS = "1981bcG@";
+    private static final String JDBC_PASS = "1981bcG";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -35,7 +35,7 @@ public class EditarRegistroServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG@");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG");
 
             String sql = "UPDATE registro_votantes SET Nombre=?, Direccion=?, Telefono=?, Puesto=?, Mesa=?, Ciudad=?, Lider=?, Observacion=? WHERE Cedula=?";
             PreparedStatement ps = conn.prepareStatement(sql);

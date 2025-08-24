@@ -26,7 +26,7 @@ public class EliminarRegistroServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG@");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG");
 
             String sql = "DELETE FROM registro_votantes WHERE Cedula = ?";
             PreparedStatement ps = conn.prepareStatement(sql);

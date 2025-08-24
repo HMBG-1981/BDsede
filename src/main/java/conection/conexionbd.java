@@ -13,12 +13,16 @@ import java.sql.SQLException;
  */
 public class conexionbd {
 
+    public static Connection getConexion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     private Connection con;
 
     public conexionbd() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG@");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG");
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println("La Conexion no Fue Exitosa: " + e.getMessage());
             // Podrías lanzar una excepción personalizada o registrar el error en un log

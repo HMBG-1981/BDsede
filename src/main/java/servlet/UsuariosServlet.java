@@ -26,7 +26,7 @@ public class UsuariosServlet extends HttpServlet {
 
         String url = "jdbc:mysql://localhost:3306/BDsede";
         String user = "root"; // Cambia según tu configuración
-        String pass = "1981bcG@";     // Cambia según tu configuración
+        String pass = "1981bcG";     // Cambia según tu configuración
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

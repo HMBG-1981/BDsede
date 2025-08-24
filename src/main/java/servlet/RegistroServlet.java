@@ -98,6 +98,7 @@ public class RegistroServlet extends HttpServlet {
                 }
             } catch (SQLException ex) {
             }
+            
         }
     }
 }
