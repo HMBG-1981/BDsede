@@ -18,3 +18,11 @@ target/
 
 # Ignorar logs
 *.log
+
+github.com/
+
+# Agrega el archivo .gitignore al staging
+git add .gitignore
+
+# Crea el commit con el cambio
+git commit -m "Actualizar .gitignore para ignorar carpeta github.com"
