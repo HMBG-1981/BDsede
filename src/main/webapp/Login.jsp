@@ -11,9 +11,8 @@
         <style>
             body {
                 font-family: 'Segoe UI', sans-serif;
-                background: url(img/bandera.jpg);
+                background: url(img/Fondo.png);
                 margin: 0;
-                padding: 10px;
             }
 
             form {
@@ -27,6 +26,7 @@
             }
 
             h2 {
+                margin-top: 5%;
                 text-align: center;
                 color: red;
                 margin-bottom: 30px;
@@ -86,6 +86,21 @@
                     1px 1px 0 black;
                 margin-top: 20px;
             }
+
+            footer {
+                margin-top: 10%;
+                font-size: 80%;
+                color: red;
+                bottom: 10px;
+                left: 10px;
+                text-align: left;
+                text-shadow: 1px 1px 0 black;
+            }
+
+            .copyright-logo {
+                width: 20px;
+                vertical-align: middle;
+            }
         </style>
     </head>
     <body>
@@ -101,6 +116,10 @@
             </div>
             <input type="submit" value="Ingresar">
         </form>
+        <footer>
+            <img src="img/pngegg.png" alt="Copyright" class="copyright-logo">
+            <b>2024. Todos los derechos reservados. BDsedo V1.0.0</b>
+        </footer>
 
         <% 
             String mensaje = request.getParameter("mensaje");

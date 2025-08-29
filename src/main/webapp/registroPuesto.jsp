@@ -1,13 +1,13 @@
-<%--
-    Document   : registro_usuarios
-    Created on : 29/05/2025, 12:21:04 p. m.
-    Author     : Administrador
+<%-- 
+    Document   : registroPuesto
+    Created on : 26/08/2025, 2:42:48 p. m.
+    Author     : jedab
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
-        <title>Registro de Usuario</title>
+        <title>Registro de Puesto</title>
         <style>
             body {
                 font-family: 'Segoe UI', sans-serif;
@@ -20,16 +20,18 @@
                 background: linear-gradient(135deg, #0d6efd, #d9534f);
                 max-width: 600px;
                 margin: auto;
+                margin-top: -1%;
                 padding: 30px;
                 border-radius: 15px;
                 box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
                 border-top: 6px solid #0d6efd;
-            }
+            }      
+           
 
             h2 {
                 text-align: center;
                 color: red;
-                margin-top: 5%;
+                margin-top: -2px;
                 margin-bottom: 30px;
                 font-size: 35px;
                 text-shadow:
@@ -57,15 +59,38 @@
                 color: #ffffff;
                 margin-bottom: 5px;
             }
-
-            input[type="text"],
-            input[type="password"],
-            select {
+            input, select {
                 width: 100%;
                 padding: 10px;
                 border: 1px solid #ced4da;
                 border-radius: 8px;
                 box-sizing: border-box;
+            }
+
+            input[type="text"],
+            input[type="password"]{
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ced4da;
+                border-radius: 8px;
+                box-sizing: border-box;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 16px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background 0.3s;
+                width: 100%;
+            }
+            .btn-registrar{
+                color: white;
+                background-color: green;
+            }
+            .btn-registrar:hover {
+                background-color: blue;
             }
 
             .botonera {
@@ -123,7 +148,6 @@
             }
 
             footer {
-                margin-top: 7%;
                 font-size: 80%;
                 color: red;
                 bottom: 10px;
@@ -139,36 +163,14 @@
         </style>
     </head>
     <body>
-        <h2>Registro Usuarios</h2>
-        <form action="UsuariosServlet" method="post" onsubmit="return validarContrasena();">
+        <h2>Registro Puesto de Votacion</h2>
+        <form action="RegistroPuestoServlet" method="post" onsubmit="return validarContrasena();">
             <div class="form-row">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" required>
                 </div>
-                <div class="form-group">
-                    <label for="direccion">Dirección:</label>
-                    <input type="text" id="direccion" name="direccion" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="cedula">Cédula:</label>
-                    <input type="text" id="cedula" name="cedula" required>
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="text" id="telefono" name="telefono" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group" style="flex: 1;">
-                    <label for="contrasena">Contraseña:</label>
-                    <input type="password" id="contrasena" name="contrasena" required>
-                </div>
-            </div>
+            
 
             <div class="botonera">
                 <div class="form-group">
@@ -179,7 +181,22 @@
                 </div>
             </div>
         </form>
+        <form action="CargarPuestoServlet" method="post" enctype="multipart/form-data">
+            <h2>Cargar Datos desde Excel</h2>
 
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="archivoExcel">Selecciona archivo Excel (.xlsx):</label>
+                    <input type="file" id="archivoExcel" name="archivoExcel" accept=".xlsx" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group" style="flex: none; width: 30%;">
+                    <button type="submit" class="btn-registrar">Cargar Excel</button>
+                </div>
+            </div>
+        </form>
         <footer>
             <img src="img/pngegg.png" alt="Copyright" class="copyright-logo">
             <b>2024. Todos los derechos reservados. BDsedo V1.0.0</b>
@@ -192,27 +209,6 @@
         <p class="mensaje"><%= mensaje %></p>
         <% } %>
 
-        <script>
-            function validarContrasena() {
-                const contrasena = document.getElementById("contrasena").value;
-                const mensaje = "La contraseña debe tener al menos:\n\n" +
-                        "- 8 caracteres\n" +
-                        "- Una letra mayúscula\n" +
-                        "- Un número\n" +
-                        "- Un carácter especial (!@#$%^&* etc.)";
 
-                const tieneLongitud = contrasena.length >= 8;
-                const tieneMayuscula = /[A-Z]/.test(contrasena);
-                const tieneNumero = /\d/.test(contrasena);
-                const tieneEspecial = /[!@#$%^&*(),.?\":{}|<>]/.test(contrasena);
-
-                if (!(tieneLongitud && tieneMayuscula && tieneNumero && tieneEspecial)) {
-                    alert(mensaje);
-                    return false;
-                }
-
-                return true;
-            }
-        </script>
     </body>
 </html>

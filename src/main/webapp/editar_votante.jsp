@@ -14,7 +14,7 @@
         <style>
             body {
                 font-family: 'Segoe UI', sans-serif;
-                background: url(img/bandera.jpg);
+                background: url(img/Fondo.png);
                 margin: 0;
                 padding: 10px;
             }
@@ -178,7 +178,7 @@
             if (cedula != null && !cedula.isEmpty() && (mensaje == null || mensaje.isEmpty())) {
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
-                    conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG@");
+                    conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG");
 
                     String sql = "SELECT * FROM registro_votantes WHERE Cedula = ?";
                     ps = conn.prepareStatement(sql);

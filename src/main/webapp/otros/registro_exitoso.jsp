@@ -24,7 +24,7 @@
 
                 display: inline-block;
                 margin: 70px;
-                background: url(img/fondo_error.jpg);
+                background: url(../img/Fondo.png);
                 background-repeat: no-repeat;
                 background-size: 100% 100%;
                 background-attachment: fixed;
@@ -32,14 +32,15 @@
 
 
             h1{
+                color: yellow;
                 margin-top: 120px;
                 font-size: 250%;
             }
 
             .btn {
                 font-size: 200%;
-                background-color: blue;
-                color: white;
+                background-color: green;
+                color: black;
                 padding: 10px 20px;
                 border: none;
                 border-radius: 5px;

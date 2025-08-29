@@ -13,12 +13,13 @@
         <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background: url(img/bandera.jpg);
+                background: url(img/Fondo.png);
                 margin: 0;
                 padding: 0;
             }
 
             h2 {
+                margin-top: 7%;
                 text-align: center;
                 color: red;
                 font-size: 35px;
@@ -33,6 +34,7 @@
                 width: 90%;
                 max-width: 600px;
                 margin: 30px auto;
+                margin-top: 3%;
                 padding: 20px;
                 background: linear-gradient(135deg, #0d6efd, #d9534f);
                 border-radius: 12px;
@@ -136,7 +138,7 @@
                             try {
                                 Class.forName("com.mysql.cj.jdbc.Driver");
                                 Connection conn = DriverManager.getConnection(
-                                    "jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG@");
+                                    "jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG");
 
                                 Statement stmt = conn.createStatement();
                                 ResultSet rs = stmt.executeQuery("SELECT DISTINCT puesto FROM registro_votantes");

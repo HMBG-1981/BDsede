@@ -10,11 +10,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
-
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
@@ -38,7 +38,6 @@ public class RegistroServlet extends HttpServlet {
         String lider = request.getParameter("lider");
         String observacion = request.getParameter("observacion");
 
-        // Conexión a la base de datos
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -46,7 +45,7 @@ public class RegistroServlet extends HttpServlet {
         try {
             conn = conexionbd.getConnection();
 
-            // Verificar si el número de documento ya existe en la tabla registro_votantes
+            // Verificar si el número de documento ya existe
             String sqlVerificar = "SELECT 1 FROM registro_votantes WHERE cedula = ?";
             stmt = conn.prepareStatement(sqlVerificar);
             stmt.setString(1, cedula);
@@ -54,12 +53,9 @@ public class RegistroServlet extends HttpServlet {
 
             if (rs.next()) {
                 // Documento ya registrado
-                response.getWriter().println("<script type=\"text/javascript\">");
-                response.getWriter().println("alert('Documento ya está registrado');");
-                response.getWriter().println("location='Registro.jsp';"); // Cambia por la página adecuada
-                response.getWriter().println("</script>");
+                request.setAttribute("mensaje", "❌ El documento ya está registrado.");
             } else {
-                // Cerrar stmt anterior y crear nuevo para el INSERT
+                // Cerrar stmt anterior
                 stmt.close();
 
                 String sql = "INSERT INTO registro_votantes "
@@ -79,27 +75,25 @@ public class RegistroServlet extends HttpServlet {
 
                 stmt.executeUpdate();
 
-                // Redireccionar si fue exitoso
-                response.sendRedirect("otros/registro_exitoso.jsp");
+                // Mensaje de éxito
+                request.setAttribute("mensaje", "✅ Registro exitoso.");
             }
 
+            // Reenviar al mismo formulario (Registro.jsp)
+            // El formulario se vacía porque NO se vuelven a enviar los parámetros
+            request.getRequestDispatcher("Registro.jsp").forward(request, response);
+
         } catch (SQLException e) {
-            response.getWriter().println("Error al registrar: " + e.getMessage());
+            request.setAttribute("mensaje", "⚠️ Error al registrar: " + e.getMessage());
+            request.getRequestDispatcher("Registro.jsp").forward(request, response);
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
             } catch (SQLException ex) {
+                // Ignorar error al cerrar recursos
             }
-            
         }
     }
 }
-

@@ -14,7 +14,7 @@
         <style>
             body {
                 font-family: 'Segoe UI', sans-serif;
-                background: url(img/bandera.jpg);
+                background: url(img/Fondo.png);
                 margin: 0;
                 padding: 10px;
             }
@@ -23,7 +23,8 @@
                 background: linear-gradient(135deg, #0d6efd, #d9534f);
                 max-width: 600px;
                 margin: auto;
-                padding: 40px;
+                margin-top: 7%;
+                padding: 50px;
                 border-radius: 15px;
                 box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
                 border-top: 6px solid #0d6efd;
@@ -78,7 +79,9 @@
                 En caso contrario, puedes hacer clic en <strong>Continuar</strong> para acceder a nuestro sistema.
             </p>
             <div class="btn-container">
-                <a href="registro_usuarios.jsp" class="btn">Registrar</a>
+                <a href="registro_usuarios.jsp" class="btn">Registrar Usuario</a>
+                <a href="registroLider.jsp" class="btn">Registrar Lider</a>
+                <a href="registroPuesto.jsp" class="btn">Registrar Puesto</a>
                 <a href="Registro.jsp" class="btn">Continuar</a>
             </div>
         </div>

@@ -14,7 +14,7 @@
         <style> <%-- Inicio del bloque de estilos CSS --%>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background: url(img/bandera.jpg);
+                background: url(img/Fondo.png);
                 margin: 0;
                 padding: 0;
             }
