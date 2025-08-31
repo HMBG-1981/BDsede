@@ -75,7 +75,7 @@
         <div class="container">
             <h1>¡Bienvenid@<%= (nombre != null) ? ", " + nombre : "" %>!</h1>
             <p>
-                Nos alegra tenerte aquí. Si deseas registrar un nuevo usuario, haz clic en <strong>Registrar</strong>.<br>
+                Nos alegra tenerte aquí. Si deseas registrar un nuevo usuario, haz clic en el boton <strong>Registrar</strong> que corresponda.<br>
                 En caso contrario, puedes hacer clic en <strong>Continuar</strong> para acceder a nuestro sistema.
             </p>
             <div class="btn-container">
