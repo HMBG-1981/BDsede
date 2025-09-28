@@ -21,9 +21,9 @@ public class LoginServlet extends HttpServlet {
         String contrasena = request.getParameter("contrasena");
 
         // Configuración de conexión (ajusta con tus datos reales)
-        String url = "jdbc:mysql://localhost:3306/BDsede";
+        String url = "jdbc:mysql://shortline.proxy.rlwy.net:50047/railway";
         String dbUser = "root";              // ← Cambia esto a tu usuario real
-        String dbPassword = "1981bcG";      // ← Cambia esto a tu contraseña real
+        String dbPassword = "pqmvrNBzsrqytjwxEUqulHeULDKxwuSJ";      // ← Cambia esto a tu contraseña real
 
         try {
             // Cargar el driver JDBC
