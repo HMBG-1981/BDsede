@@ -9,33 +9,33 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Clase para gestionar la conexión a la base de datos en Railway
+ * Clase para gestionar la conexión a la base de datos en Railway usando variable de entorno
  */
 public class conexionbd {
 
-    // 🔹 Datos de conexión proporcionados por Railway
-    private static final String URL = "jdbc:mysql://mysql.railway.internal:3306/railway?useSSL=false&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "pqmvrNBzsrqytjwxEUqulHeULDKxwuSJ";
-
-    private Connection con;
-
-    public conexionbd() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("✅ Conexión exitosa a la base de datos Railway");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.err.println("❌ Error en la conexión: " + e.getMessage());
-        }
-    }
-
-    public Connection getConection() {
-        return con;
-    }
+    private static Connection con = null;
 
     public static Connection getConnection() {
-        conexionbd conexion = new conexionbd();
-        return conexion.getConection();
+        if (con == null) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                // 🔹 Leer la URL desde variable de entorno
+                String url = System.getenv("DATABASE_URL");
+
+                if (url == null) {
+                    System.err.println("⚠️ La variable DATABASE_URL no está configurada en Railway.");
+                    return null;
+                }
+
+                con = DriverManager.getConnection(url);
+                System.out.println("✅ Conexión exitosa usando variable de entorno Railway");
+
+            } catch (ClassNotFoundException | SQLException e) {
+                System.err.println("❌ Error en la conexión: " + e.getMessage());
+            }
+        }
+        return con;
     }
 }
+
