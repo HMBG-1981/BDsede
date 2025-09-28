@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Clase para gestionar la conexión a la base de datos
+ * Clase para gestionar la conexión a la base de datos Railway (MySQL)
  */
 public class conexionbd {
 
@@ -17,39 +17,45 @@ public class conexionbd {
 
     public conexionbd() {
         try {
-            // Cargar el driver de MySQL
+            // 1️⃣ Cargar el driver de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // URL, usuario y contraseña del servicio Railway
-            String url = "jdbc:mysql://shortline.proxy.rlwy.net:50047/railway";
+            // 2️⃣ Parámetros de conexión (copiados desde Railway)
+            String url = "jdbc:mysql://shortline.proxy.rlwy.net:50047/railway"
+                       + "?useSSL=true"
+                       + "&requireSSL=false"
+                       + "&allowPublicKeyRetrieval=true"
+                       + "&serverTimezone=UTC";
+
             String user = "root";
             String password = "pqmvrNBzsrqytjwxEUqulHeULDKxwuSJ";
 
-            // Crear la conexión
+            // 3️⃣ Crear la conexión
             con = DriverManager.getConnection(url, user, password);
             System.out.println("✅ Conexión exitosa a la base de datos Railway.");
 
         } catch (ClassNotFoundException e) {
-            System.err.println("❌ Error: No se encontró el driver de MySQL.");
+            System.err.println("❌ Error: No se encontró el driver de MySQL (mysql-connector-j).");
             e.printStackTrace();
+
         } catch (SQLException e) {
-            System.err.println("❌ Error al conectar con la base de datos: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("❌ Error al conectar con la base de datos:");
+            e.printStackTrace(); // imprime toda la traza del error (útil para diagnosticar)
         }
     }
 
-    // Retorna la conexión activa
+    // 4️⃣ Retorna la conexión activa
     public Connection getConection() {
         return con;
     }
 
-    // Método estático para obtener una conexión rápidamente
+    // 5️⃣ Método estático para obtener una conexión rápida
     public static Connection getConnection() {
         conexionbd conexion = new conexionbd();
         return conexion.getConection();
     }
 
-    // Cerrar la conexión
+    // 6️⃣ Cerrar la conexión
     public void closeConnection() {
         try {
             if (con != null && !con.isClosed()) {
@@ -57,7 +63,8 @@ public class conexionbd {
                 System.out.println("🔒 Conexión cerrada correctamente.");
             }
         } catch (SQLException e) {
-            System.err.println("⚠️ Error al cerrar la conexión: " + e.getMessage());
+            System.err.println("⚠️ Error al cerrar la conexión:");
+            e.printStackTrace();
         }
     }
 }
