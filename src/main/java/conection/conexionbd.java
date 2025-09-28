@@ -9,23 +9,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Clase para gestionar la conexión a la base de datos
+ * Clase para gestionar la conexión a la base de datos en Railway
  */
 public class conexionbd {
 
-    public static Connection getConexion() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    // 🔹 Datos de conexión proporcionados por Railway
+    private static final String URL = "jdbc:mysql://mysql.railway.internal:3306/railway?useSSL=false&serverTimezone=UTC";
+    private static final String USER = "root";
+    private static final String PASSWORD = "pqmvrNBzsrqytjwxEUqulHeULDKxwuSJ";
 
     private Connection con;
 
     public conexionbd() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG");
+            con = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("✅ Conexión exitosa a la base de datos Railway");
         } catch (ClassNotFoundException | SQLException e) {
-            System.err.println("La Conexion no Fue Exitosa: " + e.getMessage());
-            // Podrías lanzar una excepción personalizada o registrar el error en un log
+            System.err.println("❌ Error en la conexión: " + e.getMessage());
         }
     }
 
@@ -36,9 +37,5 @@ public class conexionbd {
     public static Connection getConnection() {
         conexionbd conexion = new conexionbd();
         return conexion.getConection();
-    }
-
-    public void closeConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
