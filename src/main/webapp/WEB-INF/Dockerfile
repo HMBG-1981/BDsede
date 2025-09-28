@@ -1,14 +1,14 @@
-# Imagen base de Tomcat
+# Usa Tomcat con Java 17
 FROM tomcat:10.1-jdk17
 
-# Elimina la app por defecto de Tomcat
+# Elimina las apps por defecto
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copia tu WAR al servidor Tomcat
+# Copia tu WAR al Tomcat
 COPY target/NewProyect-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expone el puerto
 EXPOSE 8080
 
-# Ejecuta Tomcat
+# Inicia Tomcat
 CMD ["catalina.sh", "run"]
