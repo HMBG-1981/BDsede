@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
 
         // 1️⃣ Capturar los datos del formulario
         String cedula = request.getParameter("usuario");
-        String contrasena = request.getParameter("contrasena");
+        String contrasena = request.getParameter("contraseña");
 
         // 2️⃣ Declarar objetos JDBC
         Connection conn = null;
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             // 4️⃣ Consulta SQL para verificar las credenciales
-            String sql = "SELECT * FROM usuarios WHERE cedula = ? AND contrasena = ?";
+            String sql = "SELECT * FROM usuarios WHERE cedula = ? AND contraseña = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, cedula);
             stmt.setString(2, contrasena);

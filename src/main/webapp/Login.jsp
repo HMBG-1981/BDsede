@@ -111,8 +111,8 @@
                 <input type="text" id="usuario" name="usuario" required>
             </div>
             <div class="form-group">
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena" required>
+                <label for="contraseña">Contraseña:</label>
+                <input type="password" id="contraseña" name="contraseña" required>
             </div>
             <input type="submit" value="Ingresar">
         </form>
