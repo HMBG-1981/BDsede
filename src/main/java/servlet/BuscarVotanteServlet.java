@@ -33,11 +33,22 @@ public class BuscarVotanteServlet extends HttpServlet {
         String puesto = request.getParameter("puesto");
         String mesa = request.getParameter("mesa");
 
+// 🔹 Mostrar en consola los valores recibidos (debug)
+        System.out.println("Líder: " + lider);
+        System.out.println("Puesto: " + puesto);
+        System.out.println("Mesa: " + mesa);
+
         // 🔹 Crear mapa con los criterios válidos
         Map<String, String> criterios = new LinkedHashMap<>();
-        if (lider != null && !lider.trim().isEmpty()) criterios.put("lider", lider.trim());
-        if (puesto != null && !puesto.trim().isEmpty()) criterios.put("puesto", puesto.trim());
-        if (mesa != null && !mesa.trim().isEmpty()) criterios.put("mesa", mesa.trim());
+        if (lider != null && !lider.trim().isEmpty()) {
+            criterios.put("lider", lider.trim());
+        }
+        if (puesto != null && !puesto.trim().isEmpty()) {
+            criterios.put("puesto", puesto.trim());
+        }
+        if (mesa != null && !mesa.trim().isEmpty()) {
+            criterios.put("mesa", mesa.trim());
+        }
 
         // 🔹 Validar que haya al menos un criterio
         if (criterios.isEmpty()) {
@@ -57,7 +68,9 @@ public class BuscarVotanteServlet extends HttpServlet {
             boolean primero = true;
 
             for (String campo : criterios.keySet()) {
-                if (!primero) sql.append(" AND ");
+                if (!primero) {
+                    sql.append(" AND ");
+                }
                 sql.append(campo).append(" = ?");
                 primero = false;
             }
