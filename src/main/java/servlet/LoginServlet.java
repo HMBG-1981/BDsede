@@ -9,7 +9,7 @@ import java.sql.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.WebServlet;
-import conection.conexionbd; // 👈 Importamos tu clase de conexión
+import conection.conexionbd;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
 
         // 1️⃣ Capturar los datos del formulario
         String cedula = request.getParameter("usuario");
-        String contrasena = request.getParameter("contraseña");
+        String contrasena = request.getParameter("contrasena");
 
         // 2️⃣ Declarar objetos JDBC
         Connection conn = null;
@@ -28,15 +28,15 @@ public class LoginServlet extends HttpServlet {
         ResultSet rs = null;
 
         try {
-            // 3️⃣ Obtener conexión desde tu clase personalizada
+            // 3️⃣ Obtener conexión desde la clase de conexión
             conn = conexionbd.getConnection();
 
             if (conn == null) {
                 throw new SQLException("No se pudo establecer la conexión con la base de datos.");
             }
 
-            // 4️⃣ Consulta SQL para verificar las credenciales
-            String sql = "SELECT * FROM usuarios WHERE cedula = ? AND contraseña = ?";
+            // 4️⃣ Consulta SQL para verificar credenciales
+            String sql = "SELECT * FROM usuarios WHERE cedula = ? AND contrasena = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, cedula);
             stmt.setString(2, contrasena);
@@ -45,24 +45,24 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
                 // ✅ Usuario autenticado correctamente
-                String nombre = rs.getString("nombre"); // Asegúrate de que exista esta columna
+                String nombre = rs.getString("nombre");
 
-                // Crear sesión y guardar datos
+                // Crear sesión
                 HttpSession session = request.getSession();
                 session.setAttribute("cedula", cedula);
                 session.setAttribute("nombre", nombre);
 
-                // Redirigir a la página de bienvenida
+                // Redirigir a bienvenida.jsp
                 response.sendRedirect("bienvenida.jsp");
             } else {
-                // ⚠️ Usuario o contraseña incorrectos
-                response.sendRedirect("Login.jsp?mensaje=Usuario o clave incorrectos.");
+                // ⚠️ Usuario o clave incorrectos
+                response.sendRedirect("Login.jsp?mensaje=Usuario o contraseña incorrectos.");
             }
 
         } catch (Exception e) {
             // 5️⃣ Manejo de errores
-            e.printStackTrace();
-            response.sendRedirect("Login.jsp?mensaje=Error al conectar con la base de datos.");
+            e.printStackTrace(); // Ver el error real en consola
+            response.sendRedirect("Login.jsp?mensaje=Error: " + e.getMessage());
         } finally {
             // 6️⃣ Liberar recursos
             try {
