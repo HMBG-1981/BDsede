@@ -6,8 +6,9 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+
+import conection.conexionbd; // ✅ Importamos tu clase de conexión
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,39 +17,49 @@ import jakarta.servlet.http.*;
 @WebServlet("/UsuariosServlet")
 public class UsuariosServlet extends HttpServlet {
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // 🔹 Obtener parámetros del formulario
         String nombre = request.getParameter("nombre");
         String direccion = request.getParameter("direccion");
         String cedula = request.getParameter("cedula");
         String telefono = request.getParameter("telefono");
         String contrasena = request.getParameter("contrasena");
 
-        String url = "jdbc:mysql://localhost:3306/BDsede";
-        String user = "root"; // Cambia según tu configuración
-        String pass = "1981bcG";     // Cambia según tu configuración
+        // 🧠 Depuración: mostrar datos en consola (solo para pruebas)
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Cédula: " + cedula);
+        System.out.println("Teléfono: " + telefono);
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, user, pass);
+        // 🔹 Conexión usando tu clase personalizada
+        try (Connection con = conexionbd.getConnection()) {
 
-            String sql = "INSERT INTO usuarios (nombre, direccion, cedula, telefono, contrasena) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, nombre);
-            ps.setString(2, direccion);
-            ps.setString(3, cedula);
-            ps.setString(4, telefono);
-            ps.setString(5, contrasena); // Ideal cifrar antes de guardar
-
-            int result = ps.executeUpdate();
-
-            if (result > 0) {
-                response.sendRedirect("bienvenida.jsp?mensaje=Registro exitoso");
-            } else {
-                response.sendRedirect("registro_usuarios.jsp?mensaje=Error al registrar");
+            if (con == null) {
+                response.sendRedirect("registro_usuarios.jsp?mensaje=No se pudo establecer conexión con la base de datos");
+                return;
             }
 
-            con.close();
+            // 🔹 Preparar sentencia SQL
+            String sql = "INSERT INTO usuarios (nombre, direccion, cedula, telefono, contrasena) VALUES (?, ?, ?, ?, ?)";
+
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, nombre);
+                ps.setString(2, direccion);
+                ps.setString(3, cedula);
+                ps.setString(4, telefono);
+                ps.setString(5, contrasena); // ⚠️ En producción, deberías cifrarla antes
+
+                int result = ps.executeUpdate();
+
+                if (result > 0) {
+                    response.sendRedirect("bienvenida.jsp?mensaje=Registro exitoso");
+                } else {
+                    response.sendRedirect("registro_usuarios.jsp?mensaje=Error al registrar");
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("registro_usuarios.jsp?mensaje=Error: " + e.getMessage());
