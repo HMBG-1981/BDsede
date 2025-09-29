@@ -9,6 +9,7 @@ import java.sql.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.WebServlet;
+import conection.conexionbd; // 👈 Importamos tu clase de conexión
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -17,51 +18,60 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // 1️⃣ Capturar los datos del formulario
         String cedula = request.getParameter("usuario");
         String contrasena = request.getParameter("contrasena");
 
-        // Configuración de conexión (ajusta con tus datos reales)
-        String url = "jdbc:mysql://shortline.proxy.rlwy.net:50047/railway";
-        String dbUser = "root";              // ← Cambia esto a tu usuario real
-        String dbPassword = "pqmvrNBzsrqytjwxEUqulHeULDKxwuSJ";      // ← Cambia esto a tu contraseña real
+        // 2️⃣ Declarar objetos JDBC
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            // Cargar el driver JDBC
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            // 3️⃣ Obtener conexión desde tu clase personalizada
+            conn = conexionbd.getConnection();
 
-            // Establecer conexión
-            Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
+            if (conn == null) {
+                throw new SQLException("No se pudo establecer la conexión con la base de datos.");
+            }
 
-            // Consulta SQL para verificar usuario
+            // 4️⃣ Consulta SQL para verificar las credenciales
             String sql = "SELECT * FROM usuarios WHERE cedula = ? AND contrasena = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt = conn.prepareStatement(sql);
             stmt.setString(1, cedula);
             stmt.setString(2, contrasena);
 
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Usuario autenticado
-                String nombre = rs.getString("nombre"); // ← Asegúrate de que tu tabla tenga esta columna
+                // ✅ Usuario autenticado correctamente
+                String nombre = rs.getString("nombre"); // Asegúrate de que exista esta columna
 
+                // Crear sesión y guardar datos
                 HttpSession session = request.getSession();
                 session.setAttribute("cedula", cedula);
-                session.setAttribute("nombre", nombre); // ← Guarda el nombre para mostrarlo luego
+                session.setAttribute("nombre", nombre);
 
                 // Redirigir a la página de bienvenida
                 response.sendRedirect("bienvenida.jsp");
             } else {
-                // Usuario no encontrado
+                // ⚠️ Usuario o contraseña incorrectos
                 response.sendRedirect("Login.jsp?mensaje=Usuario o clave incorrectos.");
             }
 
-            rs.close();
-            stmt.close();
-            conn.close();
-
         } catch (Exception e) {
+            // 5️⃣ Manejo de errores
             e.printStackTrace();
             response.sendRedirect("Login.jsp?mensaje=Error al conectar con la base de datos.");
+        } finally {
+            // 6️⃣ Liberar recursos
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
