@@ -6,9 +6,9 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import conection.conexionbd; // ✅ Importar la clase de conexión
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,9 +20,11 @@ public class EditarRegistroServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Obtener los parámetros del formulario
         String cedula = request.getParameter("cedula");
         String nombre = request.getParameter("nombre");
         String direccion = request.getParameter("direccion");
@@ -33,12 +35,16 @@ public class EditarRegistroServlet extends HttpServlet {
         String lider = request.getParameter("lider");
         String observacion = request.getParameter("observacion");
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BDsede", "root", "1981bcG");
+        Connection conn = null;
+        PreparedStatement ps = null;
 
+        try {
+            // ✅ Obtener la conexión desde la clase conexionbd
+            conn = conexionbd.getConnection();
+
+            // Consulta SQL para actualizar el registro
             String sql = "UPDATE registro_votantes SET Nombre=?, Direccion=?, Telefono=?, Puesto=?, Mesa=?, Ciudad=?, Lider=?, Observacion=? WHERE Cedula=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
             ps.setString(1, nombre);
             ps.setString(2, direccion);
             ps.setString(3, telefono);
@@ -50,9 +56,8 @@ public class EditarRegistroServlet extends HttpServlet {
             ps.setString(9, cedula);
 
             int filas = ps.executeUpdate();
-            ps.close();
-            conn.close();
 
+            // ✅ Redirección según el resultado
             if (filas > 0) {
                 response.sendRedirect("editar_votante.jsp?mensaje=actualizado");
             } else {
@@ -60,7 +65,16 @@ public class EditarRegistroServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             response.sendRedirect("editar_votante.jsp?mensaje=error");
+        } finally {
+            // ✅ Cerrar recursos correctamente
+            try {
+                if (ps != null) ps.close();
+                if (conn != null && !conn.isClosed()) conn.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
