@@ -7,22 +7,27 @@
 <%@ page import="java.util.*, java.sql.*, conection.conexionbd" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>Módulo de Consulta de Puestos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
+        /* 🎨 Estilos generales */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: url(img/Fondo.png);
+            background: url('img/Fondo.png') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
-            padding: 0;
+            padding: 15px;
         }
 
         h2 {
-            margin-top: 7%;
+            margin-top: 5%;
             text-align: center;
             color: red;
-            font-size: 35px;
+            font-size: 2.2rem;
             text-shadow:
                 -1px -1px 0 black,
                 1px -1px 0 black,
@@ -31,39 +36,40 @@
         }
 
         form {
-            width: 90%;
+            width: 95%;
             max-width: 600px;
             margin: 30px auto;
-            margin-top: 3%;
-            padding: 20px;
+            padding: 25px;
             background: linear-gradient(135deg, #0d6efd, #d9534f);
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
             color: white;
-            position: relative;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: bold;
             color: black;
+            font-size: 1rem;
         }
 
+        /* 📋 Contenedor del select personalizado */
         .custom-select {
             position: relative;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .select-box {
             background-color: #fff;
             border: 1px solid #dcdde1;
             border-radius: 8px;
-            padding: 10px;
+            padding: 12px;
             cursor: pointer;
             font-size: 16px;
-            color: black;
+            color: #333;
+            text-align: left;
         }
 
         #checkboxes {
@@ -71,84 +77,132 @@
             border: 1px solid #dcdde1;
             border-radius: 8px;
             padding: 10px;
-            background-color: white;
+            background-color: #fff;
             position: absolute;
             width: 100%;
-            max-height: 150px;
+            max-height: 180px;
             overflow-y: auto;
-            z-index: 10;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         #checkboxes label {
-            color: black;
-            margin-bottom: 5px;
+            color: #000;
+            margin-bottom: 6px;
             display: block;
             font-weight: normal;
+            font-size: 15px;
         }
 
+        /* 🧭 Botones */
         .btn-container {
             display: flex;
-            flex-wrap: nowrap;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .btn-container button {
-            flex: 1 1 auto;
-            width: 24%;
-            background-color: red;
+            flex: 1 1 45%;
+            min-width: 130px;
+            background-color: #dc3545;
             color: white;
-            padding: 12px 0;
+            padding: 12px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 15px;
-            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
         }
 
         .btn-container button:hover {
-            background-color: green;
+            background-color: #198754;
+            transform: scale(1.05);
         }
 
+        /* 🧾 Resultado */
         .resultado {
-            width: 90%;
+            width: 95%;
             max-width: 600px;
             margin: 20px auto;
             background: #fff;
             padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
             color: #333;
             font-size: 16px;
         }
+
+        /* 📱 Responsividad */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.8rem;
+                margin-top: 10%;
+            }
+
+            form {
+                padding: 20px;
+            }
+
+            .btn-container button {
+                flex: 1 1 100%;
+                font-size: 15px;
+            }
+
+            .select-box {
+                font-size: 15px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .btn-container {
+                gap: 8px;
+            }
+
+            .btn-container button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <h2>Módulo de Consulta de Puestos</h2>
 
     <form action="ConsultaPuestosServlet" method="post">
         <label>Selecciona uno o varios puestos:</label>
+
         <div class="custom-select">
             <div class="select-box" onclick="toggleCheckboxes()">Seleccionar puestos</div>
             <div id="checkboxes">
                 <label>
                     <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"> Seleccionar todos
                 </label>
-                <%
+
+                <% 
                     try (Connection conn = conexionbd.getConnection()) {
                         if (conn != null) {
                             Statement stmt = conn.createStatement();
-                            ResultSet rs = stmt.executeQuery("SELECT DISTINCT puesto FROM registro_votantes WHERE puesto IS NOT NULL AND puesto <> '' ORDER BY puesto ASC");
+                            ResultSet rs = stmt.executeQuery(
+                                "SELECT DISTINCT puesto FROM registro_votantes " +
+                                "WHERE puesto IS NOT NULL AND puesto <> '' ORDER BY puesto ASC"
+                            );
 
                             while (rs.next()) {
                                 String puesto = rs.getString("puesto");
                 %>
-                <label>
-                    <input type="checkbox" name="puestos" value="<%=puesto%>" onclick="updateSelectAll()"> 
-                    <%=puesto%>
-                </label>
+                                <label>
+                                    <input type="checkbox" name="puestos" value="<%=puesto%>" onclick="updateSelectAll()"> 
+                                    <%=puesto%>
+                                </label>
                 <%
                             }
                             rs.close();
@@ -167,24 +221,24 @@
             <button type="submit" name="accion" value="consultarSeleccion">Consultar</button>
             <button type="submit" name="accion" value="mayorCantidad">Mayor</button>
             <button type="submit" name="accion" value="menorCantidad">Menor</button>
-            <button type="button" onclick="window.location.href = 'buscar_lider.jsp'">Regresar</button>
+            <button type="button" onclick="window.location.href='buscar_lider.jsp'">Regresar</button>
         </div>
     </form>
 
-    <%
+    <% 
         String resultado = (String) request.getAttribute("resultado");
-        if (resultado != null) {
+        if (resultado != null) { 
     %>
-    <div class="resultado">
-        <strong>Resultado:</strong><br>
-        <%= resultado %>
-    </div>
-    <%
-        }
-    %>
+        <div class="resultado">
+            <strong>Resultado:</strong><br>
+            <%= resultado %>
+        </div>
+    <% } %>
 
+    <!-- 📜 Script para desplegable y selección múltiple -->
     <script>
         let expanded = false;
+
         function toggleCheckboxes() {
             const checkboxes = document.getElementById("checkboxes");
             checkboxes.style.display = expanded ? "none" : "block";
