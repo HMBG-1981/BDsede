@@ -5,10 +5,12 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Registro de Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ✅ Para móviles -->
     <style>
         /* --- ESTILOS GENERALES --- */
         body {
@@ -24,7 +26,7 @@
             color: red;
             margin-top: 5%;
             margin-bottom: 30px;
-            font-size: 2.2em;
+            font-size: 2em;
             text-shadow:
                 -1px -1px 0 black,
                 1px -1px 0 black,
@@ -36,18 +38,18 @@
         form {
             background: linear-gradient(135deg, #0d6efd, #d9534f);
             max-width: 600px;
-            width: 90%;
+            width: 95%;
             margin: 20px auto;
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
-            border-top: 6px solid #0d6efd;
+            border-top: 5px solid #0d6efd;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
 
         .form-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 15px;
         }
 
@@ -59,25 +61,26 @@
 
         label {
             font-weight: bold;
-            color: #ffffff;
+            color: #fff;
             margin-bottom: 6px;
         }
 
         input[type="text"],
         input[type="password"],
+        input[type="number"],
         select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ced4da;
             border-radius: 8px;
             box-sizing: border-box;
-            outline: none;
             font-size: 1em;
+            outline: none;
         }
 
         input:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+            border-color: #ffc107;
+            box-shadow: 0 0 5px rgba(255, 193, 7, 0.6);
         }
 
         /* --- BOTONES --- */
@@ -103,31 +106,45 @@
             width: 100%;
             background-color: red;
             color: white;
+            font-weight: bold;
+            letter-spacing: 0.5px;
             transition: 0.3s ease;
         }
 
         button:hover {
             background-color: green;
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
 
         /* --- RESPONSIVE --- */
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.7em;
+            }
+
             form {
                 padding: 20px;
             }
+
             .form-row {
                 flex-direction: column;
+                gap: 10px;
             }
+
             .botonera {
                 flex-direction: column;
             }
+
             .botonera .form-group {
                 width: 100%;
             }
+
+            input, select {
+                font-size: 16px; /* ✅ Mejor para dedos en móviles */
+            }
         }
 
-        /* --- MENSAJE Y PIE --- */
+        /* --- MENSAJE --- */
         p.mensaje {
             text-align: center;
             font-weight: bold;
@@ -140,8 +157,9 @@
             margin-top: 20px;
         }
 
+        /* --- PIE DE PÁGINA --- */
         footer {
-            margin-top: 7%;
+            margin-top: 8%;
             font-size: 0.9em;
             color: red;
             text-align: center;
@@ -149,8 +167,9 @@
         }
 
         .copyright-logo {
-            width: 20px;
+            width: 22px;
             vertical-align: middle;
+            margin-right: 5px;
         }
     </style>
 </head>
@@ -161,29 +180,29 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
             </div>
             <div class="form-group">
                 <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" name="direccion" required>
+                <input type="text" id="direccion" name="direccion" placeholder="Ej. Calle 10 # 5-20" required>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group">
                 <label for="cedula">Cédula:</label>
-                <input type="text" id="cedula" name="cedula" required>
+                <input type="number" id="cedula" name="cedula" placeholder="Ingrese su número" required>
             </div>
             <div class="form-group">
                 <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required>
+                <input type="text" id="telefono" name="telefono" placeholder="Ej. 3001234567" required>
             </div>
         </div>
 
         <div class="form-row">
-            <div class="form-group">
+            <div class="form-group" style="flex: 1;">
                 <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena" required>
+                <input type="password" id="contrasena" name="contrasena" placeholder="Cree una contraseña segura" required>
             </div>
         </div>
 
@@ -191,8 +210,8 @@
             <div class="form-group">
                 <button type="submit">Registrar</button>
             </div>
-            <div class="form-group"> 
-                <button type="button" onclick="window.location.href = 'bienvenida.jsp'">Regresar</button>
+            <div class="form-group">
+                <button type="button" onclick="window.location.href='bienvenida.jsp'">Regresar</button>
             </div>
         </div>
     </form>
@@ -206,13 +225,15 @@
 
     <footer>
         <img src="img/pngegg.png" alt="Copyright" class="copyright-logo">
-        <b>2024. Todos los derechos reservados. BDsedo V1.0.0</b>
+        <b>2025. Todos los derechos reservados. BDSEDE V1.1.0</b>
     </footer>
 
     <script>
+        // ✅ Validación avanzada de contraseña
         function validarContrasena() {
             const contrasena = document.getElementById("contrasena").value;
-            const mensaje = "La contraseña debe tener al menos:\n\n" +
+            const mensaje = 
+                "La contraseña debe tener al menos:\n\n" +
                 "- 8 caracteres\n" +
                 "- Una letra mayúscula\n" +
                 "- Un número\n" +
@@ -227,9 +248,9 @@
                 alert(mensaje);
                 return false;
             }
-
             return true;
         }
     </script>
 </body>
 </html>
+
