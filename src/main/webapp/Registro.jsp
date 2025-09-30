@@ -12,70 +12,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Registro</title>
+
+    <!-- 📱 Hace que el sitio se vea bien en móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
+        /* ====== ESTILOS GENERALES ====== */
         body {
             font-family: 'Segoe UI', sans-serif;
-            background: url(img/Fondo.png);
+            background: url('img/Fondo.png') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
-            padding: 10px;
-        }
-
-        form {
-            background: linear-gradient(135deg, #0d6efd, #d9534f);
-            max-width: 600px;
-            margin: auto;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            border-top: 6px solid #0d6efd;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h2 {
             text-align: center;
             color: red;
-            margin-bottom: 30px;
-            font-size: 35px;
+            font-size: 2rem;
             text-shadow: -1px -1px 0 black,
                          1px -1px 0 black,
                         -1px  1px 0 black,
                          1px  1px 0 black;
+            margin-bottom: 20px;
         }
 
-        .mensaje {
+        /* ====== FORMULARIOS ====== */
+        form {
+            background: linear-gradient(135deg, #0d6efd, #d9534f);
+            width: 95%;
             max-width: 600px;
-            margin: 15px auto;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .mensaje.exito {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .mensaje.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 15px;
+            border-top: 6px solid #0d6efd;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            box-sizing: border-box;
         }
 
         .form-row {
             display: flex;
-            gap: 30px;
-            margin-bottom: 9px;
+            gap: 20px;
             flex-wrap: wrap;
+            margin-bottom: 10px;
         }
 
         .form-group {
             flex: 1;
+            min-width: 100px;
         }
 
         label {
-            display: block;
             font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 5px;
+            color: #fff;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1rem;
         }
 
         input, select {
@@ -83,17 +78,49 @@
             padding: 10px;
             border: 1px solid #ced4da;
             border-radius: 8px;
+            font-size: 1rem;
             box-sizing: border-box;
         }
 
+        input:focus, select:focus {
+            border-color: #198754;
+            box-shadow: 0 0 5px rgba(25, 135, 84, 0.5);
+            outline: none;
+        }
+
+        /* ====== MENSAJES ====== */
+        .mensaje {
+            width: 95%;
+            max-width: 600px;
+            margin: 15px auto;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .mensaje.exito {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .mensaje.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* ====== BOTONES ====== */
         button {
             padding: 12px;
-            font-size: 16px;
+            font-size: 1rem;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
             width: 100%;
+            font-weight: bold;
         }
 
         .btn-registrar {
@@ -103,6 +130,7 @@
 
         .btn-registrar:hover {
             background-color: green;
+            transform: scale(1.03);
         }
 
         .btn-buscar {
@@ -112,41 +140,76 @@
 
         .btn-buscar:hover {
             background-color: green;
+            transform: scale(1.03);
         }
 
+        /* Contenedor de botones */
         .botonera {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
+            gap: 15px;
             margin-top: 20px;
             flex-wrap: wrap;
         }
 
         .botonera .form-group {
             flex: 1;
+            min-width: 130px;
         }
 
-        @media (max-width: 700px) {
-            .form-row {
-                flex-direction: column;
-            }
-            .botonera {
-                flex-direction: column;
-            }
-        }
-
+        /* ====== PIE DE PÁGINA ====== */
         footer {
-            font-size: 80%;
+            font-size: 0.9rem;
             color: red;
-            bottom: 10px;
-            left: 10px;
-            text-align: left;
             text-shadow: 1px 1px 0 black;
+            text-align: center;
+            margin-top: 20px;
         }
 
         .copyright-logo {
-            width: 20px;
+            width: 18px;
             vertical-align: middle;
+        }
+
+        /* ====== RESPONSIVIDAD ====== */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            form {
+                padding: 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            label, input, select {
+                font-size: 0.95rem;
+            }
+
+            button {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            label {
+                font-size: 0.9rem;
+            }
+
+            footer {
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
@@ -169,6 +232,7 @@
     <form action="RegistroServlet" method="post">
         <h2>BD CONGRESO 2026</h2>
 
+        <!-- Fila 1 -->
         <div class="form-row">
             <div class="form-group">
                 <label for="nombre">Nombre</label>
@@ -180,59 +244,52 @@
             </div>
         </div>
 
+        <!-- Fila 2 -->
         <div class="form-row">
             <div class="form-group">
                 <label for="direccion">Dirección</label>
                 <input type="text" id="direccion" name="direccion" required>
             </div>
             <div class="form-group">
-                <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" 
-                       required pattern="[0-9]{7,10}" 
-                       title="Ingrese un número válido">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{7,10}" title="Ingrese un número válido">
             </div>
         </div>
 
+        <!-- Fila 3 -->
         <div class="form-row">
             <div class="form-group">
                 <label for="puesto">Puesto</label>
                 <select id="puesto" name="puesto" required>
                     <option value="">Seleccione un puesto</option>
                     <%
-                        Connection connP = null;
-                        PreparedStatement psP = null;
-                        ResultSet rsP = null;
-                        try {
-                            connP = conexionbd.getConnection();
-                            String sqlP = "SELECT nombre FROM puestoVotacion ORDER BY nombre ASC";
-                            psP = connP.prepareStatement(sqlP);
-                            rsP = psP.executeQuery();
+                        try (Connection connP = conexionbd.getConnection();
+                             PreparedStatement psP = connP.prepareStatement("SELECT nombre FROM puestoVotacion ORDER BY nombre ASC");
+                             ResultSet rsP = psP.executeQuery()) {
                             while (rsP.next()) {
                     %>
-                                <option value="<%=rsP.getString("nombre")%>"><%=rsP.getString("nombre")%></option>
+                        <option value="<%= rsP.getString("nombre") %>"><%= rsP.getString("nombre") %></option>
                     <%
                             }
                         } catch (Exception e) {
                             out.println("<option>Error cargando puestos</option>");
-                        } finally {
-                            if (rsP != null) try { rsP.close(); } catch (Exception ex) {}
-                            if (psP != null) try { psP.close(); } catch (Exception ex) {}
-                            if (connP != null) try { connP.close(); } catch (Exception ex) {}
                         }
                     %>
                 </select>
             </div>
+
             <div class="form-group">
-                <label for="mesa">Mesa:</label>
+                <label for="mesa">Mesa</label>
                 <select id="mesa" name="mesa" required>
                     <option value="">Seleccione una mesa</option>
                     <% for (int i = 1; i <= 50; i++) { %>
-                        <option value="<%=i%>"><%=i%></option>
+                        <option value="<%= i %>"><%= i %></option>
                     <% } %>
                 </select>
             </div>
         </div>
 
+        <!-- Fila 4 -->
         <div class="form-row">
             <div class="form-group">
                 <label for="ciudad">Ciudad</label>
@@ -243,32 +300,23 @@
                 <select id="lider" name="lider" required>
                     <option value="">Seleccione un líder</option>
                     <%
-                        Connection conn = null;
-                        PreparedStatement ps = null;
-                        ResultSet rs = null;
-                        try {
-                            conn = conexionbd.getConnection();
-                            // Consulta desde la tabla "lideres"
-                            String sql = "SELECT nombre FROM lideres ORDER BY nombre ASC";
-                            ps = conn.prepareStatement(sql);
-                            rs = ps.executeQuery();
+                        try (Connection conn = conexionbd.getConnection();
+                             PreparedStatement ps = conn.prepareStatement("SELECT nombre FROM lideres ORDER BY nombre ASC");
+                             ResultSet rs = ps.executeQuery()) {
                             while (rs.next()) {
                     %>
-                                <option value="<%=rs.getString("nombre")%>"><%=rs.getString("nombre")%></option>
+                        <option value="<%= rs.getString("nombre") %>"><%= rs.getString("nombre") %></option>
                     <%
                             }
                         } catch (Exception e) {
                             out.println("<option>Error cargando líderes</option>");
-                        } finally {
-                            if (rs != null) try { rs.close(); } catch (Exception ex) {}
-                            if (ps != null) try { ps.close(); } catch (Exception ex) {}
-                            if (conn != null) try { conn.close(); } catch (Exception ex) {}
                         }
                     %>
                 </select>
             </div>
         </div>
 
+        <!-- Fila 5 -->
         <div class="form-row">
             <div class="form-group">
                 <label for="observacion">Observación</label>
@@ -276,57 +324,47 @@
             </div>
         </div>
 
-        <!-- Botones alineados en una línea -->
+        <!-- Botonera -->
         <div class="botonera">
             <div class="form-group">
                 <button type="submit" class="btn-registrar">Enviar</button>
             </div>
             <div class="form-group">
-                <button type="button" class="btn-buscar" 
-                        onclick="window.location.href = 'buscar_lider.jsp'">
-                    Buscar
-                </button>
+                <button type="button" class="btn-buscar" onclick="window.location.href='buscar_lider.jsp'">Buscar</button>
             </div>
             <div class="form-group">
-                <button type="button" class="btn-buscar" 
-                        onclick="window.location.href = 'editar_votante.jsp'">
-                    Editar
-                </button>
+                <button type="button" class="btn-buscar" onclick="window.location.href='editar_votante.jsp'">Editar</button>
             </div>
             <div class="form-group">
-                <button type="button" class="btn-buscar" 
-                        onclick="window.location.href = 'cerrar_sesion.jsp'">
-                    Cerrar Sesión
-                </button>
+                <button type="button" class="btn-buscar" onclick="window.location.href='cerrar_sesion.jsp'">Cerrar Sesión</button>
             </div>
         </div>
     </form>
 
-    <!-- Formulario para cargar Excel -->
+    <!-- Formulario Cargar Excel -->
     <form action="CargarExcelServlet" method="post" enctype="multipart/form-data">
         <h2>Cargar Datos desde Excel</h2>
 
         <div class="form-row">
             <div class="form-group">
                 <label for="archivoExcel">Selecciona archivo Excel (.xlsx):</label>
-                <input type="file" id="archivoExcel" name="archivoExcel" 
-                       accept=".xlsx" required>
+                <input type="file" id="archivoExcel" name="archivoExcel" accept=".xlsx" required>
             </div>
         </div>
 
         <div class="form-row">
-            <div class="form-group" style="flex: none; width: 30%;">
+            <div class="form-group" style="flex: none; width: 40%;">
                 <button type="submit" class="btn-registrar">Cargar Excel</button>
             </div>
         </div>
     </form>
 
-    <!-- Pie de página -->
+    <!-- Footer -->
     <footer>
-        <img src="img/pngegg.png" alt="Copyright" 
-             class="copyright-logo">
-        <b>2024. Todos los derechos reservados. BDsedo V1.0.0</b>
+        <img src="img/pngegg.png" alt="Copyright" class="copyright-logo">
+        <b>2024. Todos los derechos reservados. BDsede V1.0.0</b>
     </footer>
 
 </body>
 </html>
+
