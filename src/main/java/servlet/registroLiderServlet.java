@@ -4,70 +4,104 @@
  */
 package servlet;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
-import conection.conexionbd; // Importamos tu clase de conexión personalizada
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import conection.conexionbd; // ✅ Importamos tu clase de conexión
+
 @WebServlet("/registroLiderServlet")
+@MultipartConfig
 public class registroLiderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Capturar parámetros del formulario
-        String nombre = request.getParameter("nombre");
-        String direccion = request.getParameter("direccion");
-        String cedula = request.getParameter("cedula");
-        String telefono = request.getParameter("telefono");
-
         Connection con = null;
+        PreparedStatement ps = null;
 
         try {
-            // Obtener conexión desde la clase conexionbd
+            // ✅ 1. Obtener conexión desde conexionbd
             con = conexionbd.getConnection();
-
-            // Validar conexión
             if (con == null) {
-                throw new Exception("No se pudo establecer la conexión con la base de datos.");
+                throw new Exception("No se pudo conectar a la base de datos (conexionbd retornó null).");
             }
 
-            // Consulta SQL
+            // ✅ 2. Leer archivo Excel subido
+            Part filePart = request.getPart("archivoExcel");
+            InputStream fileContent = filePart.getInputStream();
+            Workbook workbook = new XSSFWorkbook(fileContent);
+            Sheet sheet = workbook.getSheetAt(0);
+
+            // ✅ 3. Preparar consulta SQL
             String sql = "INSERT INTO lideres (nombre, direccion, cedula, telefono) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, nombre);
-            ps.setString(2, direccion);
-            ps.setString(3, cedula);
-            ps.setString(4, telefono);
+            ps = con.prepareStatement(sql);
 
-            // Ejecutar inserción
-            int result = ps.executeUpdate();
+            int registrosExitosos = 0;
 
-            // Redirigir con mensaje según el resultado
-            if (result > 0) {
-                response.sendRedirect("registroLider.jsp?mensaje=Registro exitoso");
-            } else {
-                response.sendRedirect("registroLider.jsp?mensaje=Error al registrar");
+            // ✅ 4. Iterar filas (empezar desde la 2da, para saltar encabezado)
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                if (row == null) continue;
+
+                String nombre = getCellValue(row.getCell(0));
+                String direccion = getCellValue(row.getCell(1));
+                String cedula = getCellValue(row.getCell(2));
+                String telefono = getCellValue(row.getCell(3));
+
+                if (nombre == null || cedula == null || telefono == null) continue;
+
+                ps.setString(1, nombre);
+                ps.setString(2, direccion);
+                ps.setString(3, cedula);
+                ps.setString(4, telefono);
+                ps.addBatch();
+
+                registrosExitosos++;
             }
+
+            // ✅ 5. Ejecutar inserciones en lote
+            ps.executeBatch();
+            workbook.close();
+
+            // ✅ 6. Redirigir con mensaje de éxito
+            response.sendRedirect("registroLider.jsp?mensaje=" + registrosExitosos + " registros cargados exitosamente.");
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("registroLider.jsp?mensaje=Error: " + e.getMessage());
+            response.sendRedirect("registroLider.jsp?mensaje=Error al cargar Excel: " + e.getMessage());
         } finally {
-            // Cerrar conexión de forma segura
+            // ✅ 7. Cerrar recursos
             try {
-                if (con != null && !con.isClosed()) {
-                    con.close();
-                    System.out.println("🔒 Conexión cerrada correctamente (Servlet).");
-                }
+                if (ps != null) ps.close();
+                if (con != null && !con.isClosed()) con.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
     }
+
+    // ✅ Método auxiliar para leer valores de celdas
+    private String getCellValue(Cell cell) {
+        if (cell == null) return null;
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue().trim();
+            case NUMERIC:
+                return String.valueOf((long) cell.getNumericCellValue());
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue());
+            default:
+                return null;
+        }
+    }
 }
+
